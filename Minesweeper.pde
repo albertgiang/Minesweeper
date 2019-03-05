@@ -1,5 +1,3 @@
-
-
 import de.bezier.guido.*;
 int NUM_ROWS = 20;
 int NUM_COLS = 20;
@@ -14,11 +12,12 @@ void setup ()
     // make the manager
     Interactive.make( this );
     
-    buttons = [20][20];
+    buttons = new MSButton [NUM_ROWS][NUM_COLS];
+    bombs = new ArrayList <MSButton>();
     
-    for(int j = 0; j < NUM_ROWS; j++){
-      for(int k = 0; k < NUM_COLS; k++){
-        
+    for(int r = 0; r < NUM_ROWS; r++){
+      for(int c = 0; c < NUM_COLS; c++){
+        MSButton myButton = new MSButton(r, c);
       }
     }
     
@@ -26,33 +25,37 @@ void setup ()
     
     setBombs();
 }
-public void setBombs()
-{
-    //your code
+
+public void setBombs(){
+    int row = (int)(Math.random() * NUM_ROWS);
+    int column = (int)(Math.random() * NUM_COLS);
+    
+    //if(bombs.contains(row) == false){
+      bombs.add(buttons[row][column]);
+      System.out.println(row + "," + column);
+    //}
 }
 
-public void draw ()
-{
+public void draw (){
     background( 0 );
     if(isWon())
         displayWinningMessage();
 }
-public boolean isWon()
-{
+
+public boolean isWon(){
     //your code here
     return false;
 }
-public void displayLosingMessage()
-{
-    //your code here
-}
-public void displayWinningMessage()
-{
+
+public void displayLosingMessage(){
     //your code here
 }
 
-public class MSButton
-{
+public void displayWinningMessage(){
+    //your code here
+}
+
+public class MSButton{
     private int r, c;
     private float x,y, width, height;
     private boolean clicked, marked;
@@ -60,8 +63,8 @@ public class MSButton
     
     public MSButton ( int rr, int cc )
     {
-        // width = 400/NUM_COLS;
-        // height = 400/NUM_ROWS;
+         width = 400/NUM_COLS;
+         height = 400/NUM_ROWS;
         r = rr;
         c = cc; 
         x = c*width;
